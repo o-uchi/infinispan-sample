@@ -1,0 +1,17 @@
+*.class
+
+# Build Artifacts
+.gradle/
+build/
+target/
+
+# Eclipse Project Files
+.classpath
+.project
+.settings/
+
+# IntelliJ IDEA Files
+*.iml
+*.ipr
+*.iws
+*.idea
