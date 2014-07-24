@@ -1,0 +1,30 @@
+<configuration>
+	<appender name="ConsoleAppender" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<Pattern>%d{yyyy/MM/dd HH:mm:ss.SSS} %-5level [%thread] %logger{} - %msg%n%rEx</Pattern>
+    	</encoder>
+	</appender>
+
+	<appender name="ConsoleAppender2" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<Pattern> - %msg%n%rEx</Pattern>
+    	</encoder>
+	</appender>
+
+	<logger name="org.springframework" level="info"/>
+	<logger name="org.hibernate" level="info"/>
+
+	<logger name="org.hibernate.engine.jdbc" level="debug"/>
+	<logger name="org.hibernate.engine.transaction" level="debug"/>
+	<logger name="org.hibernate.event.internal.AbstractFlushingEventListener" level="debug"/>
+
+	<logger name="org.hibernate.SQL" level="off"/>
+	<logger name="org.hibernate.type.descriptor.sql.BasicBinder" level="trace" additivity="false" >
+		<appender-ref ref="ConsoleAppender2"/>
+	</logger>
+	<logger name="org.springframework.aop.interceptor.CustomizableTraceInterceptor" level="trace"/>
+
+	<root level="info">
+		<appender-ref ref="ConsoleAppender"/>
+	</root>
+</configuration>
