@@ -5,12 +5,15 @@ import org.infinispan.configuration.global.GlobalConfigurationBuilder;
 import org.infinispan.manager.DefaultCacheManager;
 
 import java.io.IOException;
+import java.net.InetAddress;
 
 import static org.infinispan.configuration.cache.CacheMode.*;
 import static org.infinispan.transaction.TransactionMode.*;
 
 public class ClusterNode {
     public static void main(String[] args) throws IOException {
+        System.setProperty("jgroups.bind_addr", InetAddress.getLocalHost().getHostAddress());
+
         DefaultCacheManager cacheManager = new DefaultCacheManager(
                 GlobalConfigurationBuilder
                         .defaultClusteredBuilder()

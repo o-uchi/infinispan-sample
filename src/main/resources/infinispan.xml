@@ -41,20 +41,24 @@
                 lockingMode="OPTIMISTIC"
                 autoCommit="true"/>
         <locking isolationLevel="READ_COMMITTED"/>
+        <clustering mode="distribution">
+            <sync/>
+            <hash numOwners="2"/>
+        </clustering>
     </default>
 
-    <namedCache name="t">
+    <namedCache name="non_tran">
         <transaction transactionMode="NON_TRANSACTIONAL"/>
     </namedCache>
 
-    <namedCache name="repl">
+    <namedCache name="replication">
         <!-- Configure a synchronous replication cache -->
         <clustering mode="replication">
             <sync/>
         </clustering>
     </namedCache>
 
-    <namedCache name="dist">
+    <namedCache name="distribution">
         <!-- Configure a synchronous distribution cache -->
         <clustering mode="distribution">
             <sync/>

@@ -5,6 +5,8 @@ import org.infinispan.configuration.cache.ConfigurationBuilder;
 import org.infinispan.configuration.global.GlobalConfigurationBuilder;
 import org.infinispan.manager.DefaultCacheManager;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
@@ -12,14 +14,15 @@ import static org.infinispan.configuration.cache.CacheMode.*;
 import static org.infinispan.transaction.TransactionMode.*;
 
 public class ClusteredCache {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws UnknownHostException {
+        System.setProperty("jgroups.bind_addr", InetAddress.getLocalHost().getHostAddress());
+
         DefaultCacheManager cacheManager = new DefaultCacheManager(
                 GlobalConfigurationBuilder
                         .defaultClusteredBuilder()
                         .transport()
                         .addProperty("configurationFile", "jgroups-tcp.xml")
                         .build()
-//                "_infinispan.xml"
         );
         cacheManager.defineConfiguration("repl", new ConfigurationBuilder()
                 .transaction().transactionMode(TRANSACTIONAL)
@@ -34,8 +37,8 @@ public class ClusteredCache {
         //WarmUp
         IntStream.range(0, 3).forEach(i -> IntStream.range(0, 100_000).count());
 
-//        bench(10_000, repl, dist);
-        bench(100_000, repl, dist);
+        bench(10_000, repl, dist);
+//        bench(100_000, repl, dist);
 
 //        cacheManager.stop();
     }

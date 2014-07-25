@@ -20,7 +20,7 @@ targetCompatibility = 1.8
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 
 processResources {
-    exclude ('conf/')
+
     includeEmptyDirs = false
     destinationDir = compileJava.destinationDir
 }
@@ -34,26 +34,24 @@ dependencies {
 }
 
 group = 'com.sample'
-version = '0.1-SNAPSHOT'
 
 jar {
     manifest.attributes["Created-By"] =  "${System.getProperty("java.version")}"
     manifest.attributes["Implementation-Title"] = rootProject.name
-    manifest.attributes["Implementation-Version"] = version
+    manifest.attributes["Implementation-Version"] = '0.1'
 }
 
 task dist(dependsOn: 'jar', type: Zip) {
     description = 'package module.'
     into('bin') {
-        from 'bin'
+        from 'src/main/bin'
     }
     into('libs') {
         from libsDir
         from configurations.compile
     }
-    into('/') {
+    into('conf') {
         from sourceSets.main.resources
-        include('conf/')
     }
 }
 build.dependsOn dist

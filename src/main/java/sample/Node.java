@@ -146,6 +146,6 @@ public class Node {
     private EmbeddedCacheManager createCacheManagerFromXml() throws IOException {
         System.out.println("Starting a cache manager with an XML configuration");
         System.setProperty("nodeName", nodeName);
-        return new DefaultCacheManager("_infinispan.xml");
+        return new DefaultCacheManager("infinispan.xml");
     }
 }
