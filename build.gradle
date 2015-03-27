@@ -20,7 +20,7 @@ targetCompatibility = 1.8
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 
 processResources {
-
+    exclude ('*.xml')
     includeEmptyDirs = false
     destinationDir = compileJava.destinationDir
 }
@@ -30,6 +30,8 @@ dependencies {
     compile "org.infinispan:infinispan-core:6.0.2.Final"
     compile "org.slf4j:slf4j-api:1.7.7"
     compile "ch.qos.logback:logback-classic:1.1.2"
+    compile "org.msgpack:msgpack:0.6.11"
+    compile "net.jpountz.lz4:lz4:1.2.0"
     testCompile ("junit:junit:4.11")
 }
 

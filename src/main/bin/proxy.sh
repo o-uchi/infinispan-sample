@@ -3,4 +3,4 @@
 export CLASSPATH=../libs/*
 export CLASSPATH=../conf/:${CLASSPATH}
 
-java benchmark.Bench $1 $2 $3
+java proxy.ProxyServiceController $1

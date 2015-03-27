@@ -11,10 +11,13 @@ import java.util.stream.Stream;
 public class Bench {
     public static void main(String[] args) throws IOException {
         int itr = 0;
+        String cacheName = null;
         String hostAddress = null;
         for (String arg : args) {
             if (arg.matches("\\d*")) {
                 itr = Integer.valueOf(arg);
+            } else if (arg.matches("\\D*")) {
+                cacheName = arg;
             } else {
                 hostAddress = arg;
             }
@@ -25,7 +28,13 @@ public class Bench {
 
         System.setProperty("jgroups.bind_addr", hostAddress);
         DefaultCacheManager cacheManager = new DefaultCacheManager("infinispan.xml");
-        Cache<Object, Object> cache = cacheManager.getCache();
+
+        Cache<Object, Object> cache;
+        if (cacheName == null) {
+            cache = cacheManager.getCache();
+        } else {
+            cache = cacheManager.getCache(cacheName);
+        }
 
         System.out.println("Start " + cacheManager.getNodeAddress());
         if (itr > 0) {
